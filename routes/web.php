@@ -22,3 +22,12 @@ Route::get('/boutique', 'ProductController@index')->name('products.index');
 Route::get('/boutique/{slug}', 'ProductController@show')->name('products.show');
 
 
+// cart 
+Route::get('/panier' , 'CartController@index')->name('cart.index');
+Route::post('/panier/ajouter', 'CartController@store')->name('cart.store');
+Route::delete('/panier/{rowId}' , 'CartController@destroy')->name('cart.destroy');
+
+Route::get('/viderpanier', function(){
+    Cart::destroy();
+});
+

@@ -31,3 +31,7 @@ Route::get('/viderpanier', function(){
     Cart::destroy();
 });
 
+// checkout routes
+
+Route::get('/paiement','CheckoutController@index')->name('checkout.index');
+

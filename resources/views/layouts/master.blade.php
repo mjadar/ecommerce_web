@@ -9,6 +9,8 @@
     <meta name="generator" content="Jekyll v4.0.1">
     <title>Blog Template · Bootstrap</title>
 
+    @yield('extra-script')
+
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/blog/">
 
     <!-- Bootstrap core CSS -->
@@ -222,6 +224,8 @@ h1, h2, h3, h4, h5, h6 {
     <a href="#">Back to top</a>
   </p>
 </footer>
+
+  @yield('extra-js')
 </body>
 </html>
   

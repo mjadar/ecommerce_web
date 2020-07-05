@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Gloudemans\Shoppingcart\Facades\Cart ;
+use Stripe\Stripe;
+use Stripe\PaymentIntent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class CheckoutController extends Controller
 {
@@ -13,7 +16,18 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        //
+       Stripe::setApiKey('sk_test_51H1bE9AyvXzALkmAEtSSkeqF1E90Yhb06obNqH6rEdIMOIAP7Wo13mUIqipubQOhKDk6RRuD2FpT4fnnEJd4BaqA00flF9XPRG');
+       $intent = PaymentIntent::create([
+        'amount' =>round( Cart::total()),
+        'currency' => 'usd',
+        // Verify your integration in this guide by including this parameter
+        'metadata' => ['integration_check' => 'accept_a_payment'],
+      ]); 
+
+      $clientSecret = Arr::get($intent,'client_secret');
+       return view('checkout.index', [
+           'clientSecret' => $clientSecret 
+       ]);
     }
 
     /**

@@ -90,9 +90,10 @@
                 <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>
                   <strong style="font-size: larger;">{{getPrice(Cart::total())}}</strong>
                 </li>
-              </ul><a href="#" class="btn btn-dark rounded-pill py-2 btn-block">Payer maintenant</a>
+              </ul><a href="{{ route('checkout.index') }}" class="btn btn-dark rounded-pill py-2 btn-block">Payer maintenant</a>
             </div>
           </div>
+          
         </div>
   
       </div>

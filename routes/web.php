@@ -38,3 +38,8 @@ Route::post('/paiement', 'CheckoutController@store')->name('checkout.store');
 Route::get('/merci' , function(){
     return view('checkout.thankyou');
 });
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});

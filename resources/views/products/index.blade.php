@@ -16,8 +16,8 @@
             <strong class="mb-auto">{{ $product-> getPrice() }} </strong>
             <a href="{{ route('products.show', $product->slug) }} " class="stretched-link btn btn-info">Voir l'article</a>
           </div>
-          <div class="col-auto d-none d-lg-block">
-          <img src="{{$product->image }}" alt="">
+          <div class="col-auto d-none d-lg-block" >
+          <img src="{{asset('storage/'. $product->image) }}" alt="" style="width: 250px;height:200px;">
           </div>
         </div>
       </div>

@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use DateTime;
 use Gloudemans\Shoppingcart\Facades\Cart ;
+use App\Order;
 use Stripe\Stripe;
 use Stripe\PaymentIntent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Session;
 
 class CheckoutController extends Controller
 {
@@ -52,11 +55,42 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-         Cart::destroy();
-         $data = $request->json()->all();
-         return $data['paymentIntent'];
-    
+        Cart::destroy();
+        $data = $request->json()->all();
+        
+        $order  = new Order();
+        $order->payment_id = $data['paymentIntent']['id'];
+        $order->amount = $data['paymentIntent']['amount'];
+        $order->payment_created_at = (new DateTime())
+            ->setTimestamp($data['paymentIntent']['created']
+            ->format('Y-m-d H:i:s'));
+            
+        $products = [];
+        $i = 0 ;
+        foreach(Cart::content() as $product){
+            $products['product_'.$i][] = $product->model->title ; 
+            $products['product_'.$i][] = $product->model->price ; 
+            $products['product_'.$i][] = $product->model->qty ; 
+            $i++;
+        }
+
+        $order->products = serialize($products);
+        $order->user_id = 15;
+        $order->save();
+        
+        if($data['paymentIntent']['status']=== 'succeeded'){
+            
+            Session::flash('success', 'Votre commande a été traitée avec succès.');
+            return response()->json(['success' => 'Payment avec succes']);
+        }else {
+            return response()->json(['error' => 'Payment failed']);
+        }
     }
+
+    // public function thankyou()
+    // {
+    //     return Session::has('success') ? view('checkout.thankyou') : redirect()->route('products.index');
+    // }
 
     /**
      * Display the specified resource.

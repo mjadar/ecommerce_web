@@ -167,12 +167,10 @@ h1, h2, h3, h4, h5, h6 {
       <a class="text-muted" href="{{ route('cart.index') }}">Panier <span class="badge badge-pill badge-dark">{{ Cart::count() }}</span></a>
       </div>
       <div class="col-4 text-center">
-        <a class="blog-header-logo text-dark" href="{{ route('products.index') }}">Ecommerce JadProd</a>
+        <a class="blog-header-logo text-dark" href="{{ route('products.index') }}">Easy Shop</a>
       </div>
       <div class="col-4 d-flex justify-content-end align-items-center">
-        <a class="text-muted" href="#" aria-label="Search">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24" focusable="false"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
-        </a>
+        @include('partials.search')
         <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
       </div>
     </div>
@@ -192,6 +190,16 @@ h1, h2, h3, h4, h5, h6 {
     <div class="alert alert-success">
         {{ session('success')}}
     </div>
+  @endif
+
+  @if (count($errors)>0)
+  <div class="alert alert-danger">
+    <ul class="mb-0 mt-0">
+      @foreach ($errors->all() as $error)
+          <li> {{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
       
   @endif
 
@@ -203,9 +211,12 @@ h1, h2, h3, h4, h5, h6 {
     </div>
   </div> --}}
 
+
+  @if (request()->input('q'))
+    <h4>{{ $products->total() }} résultat pour la recherche {{ request()->q }}</h4>      
+  @endif
   <div class="row mb-2">
     @yield('content')
-  
   </div>
 </div>
 

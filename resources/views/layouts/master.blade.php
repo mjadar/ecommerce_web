@@ -9,6 +9,9 @@
     <meta name="generator" content="Jekyll v4.0.1">
     @yield('extra-meta')
     <title>Blog Template · Bootstrap</title>
+    
+       <!-- Scripts -->
+       <script src="{{ asset('js/app.js') }}"></script>
 
     @yield('extra-script')
 
@@ -30,6 +33,10 @@
 
 
     <style>
+     body{
+        background-color: cornsilk;
+       
+      }
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -157,6 +164,7 @@ h1, h2, h3, h4, h5, h6 {
     <!-- Custom styles for this template -->
     <link href="blog.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ asset('css/ecommerce.css') }}">
   </head>
 
   <body>
@@ -171,7 +179,7 @@ h1, h2, h3, h4, h5, h6 {
       </div>
       <div class="col-4 d-flex justify-content-end align-items-center">
         @include('partials.search')
-        <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
+        @include('partials.auth')
       </div>
     </div>
   </header>
